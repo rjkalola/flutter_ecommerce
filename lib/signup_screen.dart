@@ -50,16 +50,39 @@ class SignUpState extends State<SignUpScreen> {
                         padding: const EdgeInsets.fromLTRB(24, 26, 24, 0),
                         child: ListView(
                           children: <Widget>[
-                            SizedBox(height: 4),
                             Center(
                               child: Text("Sign Up",
                                   style: TextStyle(
                                     color: Colors.black,
                                     fontWeight: FontWeight.w500,
-                                    fontSize: 25,
+                                    fontSize: 24,
                                   )),
                             ),
-                            SizedBox(height: 20),
+                            SizedBox(height: 16),
+                            TextFormField(
+                              keyboardType: TextInputType.text,
+                              textInputAction: TextInputAction.next,
+                              decoration: InputDecoration(
+                                hintText: 'First Name',
+                                labelText: 'First Name',
+                                labelStyle: TextStyle(color: Colors.grey),
+                                hintStyle:
+                                    TextStyle(fontSize: 15, color: Colors.grey),
+                              ),
+                            ),
+                            SizedBox(height: 12),
+                            TextFormField(
+                              keyboardType: TextInputType.text,
+                              textInputAction: TextInputAction.next,
+                              decoration: InputDecoration(
+                                hintText: 'Last Name',
+                                labelText: 'Last Name',
+                                labelStyle: TextStyle(color: Colors.grey),
+                                hintStyle:
+                                    TextStyle(fontSize: 15, color: Colors.grey),
+                              ),
+                            ),
+                            SizedBox(height: 12),
                             TextFormField(
                               controller: emailController,
                               keyboardType: TextInputType.emailAddress,
@@ -72,13 +95,32 @@ class SignUpState extends State<SignUpScreen> {
                                     TextStyle(fontSize: 15, color: Colors.grey),
                               ),
                             ),
-                            SizedBox(height: 14),
+                            SizedBox(height: 12),
                             TextFormField(
                               controller: passwordController,
-                              textInputAction: TextInputAction.done,
+                              textInputAction: TextInputAction.next,
                               decoration: InputDecoration(
                                 hintText: 'Password',
                                 labelText: 'Password',
+                                labelStyle: TextStyle(color: Colors.grey),
+                                hintStyle: TextStyle(
+                                  fontSize: 15,
+                                  color: Colors.grey,
+                                ),
+                              ),
+                            ),
+                            SizedBox(height: 12),
+                            TextFormField(
+                              keyboardType: TextInputType.number,
+                              inputFormatters: <TextInputFormatter>[
+                                // for below version 2 use this
+                                FilteringTextInputFormatter.allow(
+                                    RegExp(r'[0-9]'))
+                              ],
+                              textInputAction: TextInputAction.done,
+                              decoration: InputDecoration(
+                                hintText: 'Mobile Number',
+                                labelText: 'Mobile Number',
                                 labelStyle: TextStyle(color: Colors.grey),
                                 hintStyle: TextStyle(
                                   fontSize: 15,
@@ -95,46 +137,13 @@ class SignUpState extends State<SignUpScreen> {
                               splashColor: Colors.white.withAlpha(30),
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(8)),
-                              child: Text("Login",
+                              child: Text("Create Account",
                                   style: TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.w500,
                                     fontSize: 15,
                                   )),
                             ),
-                            SizedBox(height: 32),
-                            GestureDetector(
-                              onTap: () {},
-                              child: Center(
-                                  child: Text(
-                                "Forgot your password?",
-                                style: TextStyle(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black),
-                              )),
-                            ),
-                            SizedBox(height: 26),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text("Don't have an account?",
-                                    style: TextStyle(
-                                      color: Colors.black26,
-                                      fontSize: 15,
-                                    )),
-                                Padding(
-                                  padding: EdgeInsets.all(4.0),
-                                  child: GestureDetector(
-                                      onTap: () {},
-                                      child: Text("Sign Up",
-                                          style: TextStyle(
-                                              color: Colors.red,
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.w500))),
-                                )
-                              ],
-                            )
                           ],
                         ),
                       ),

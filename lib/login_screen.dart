@@ -2,7 +2,11 @@ import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_ecommerce/signup_screen.dart';
+import 'package:flutter_ecommerce/utils.dart';
 import 'package:flutter_svg/svg.dart';
+import 'signup_screen.dart';
+import 'package:http/http.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -14,6 +18,21 @@ class LoginScreen extends StatefulWidget {
 class LoginScreenState extends State<LoginScreen> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+
+  void login(String email, String password) async {
+    print("${Utils.appUrl}kk-login");
+    try {
+      Response response = await post(Uri.parse("${Utils.appUrl}kk-login"),
+          body: {'email': email, 'password': password});
+      if (response.statusCode == 200) {
+        print("Login Successfully");
+      } else {
+        print("Login Failed");
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -110,7 +129,10 @@ class LoginScreenState extends State<LoginScreen> {
                         ),
                         SizedBox(height: 36),
                         MaterialButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            login(emailController.text.toString().trim(),
+                                passwordController.text.toString().trim());
+                          },
                           color: Colors.lightGreen,
                           elevation: 0,
                           height: 42,
@@ -148,7 +170,13 @@ class LoginScreenState extends State<LoginScreen> {
                             Padding(
                               padding: EdgeInsets.all(4.0),
                               child: GestureDetector(
-                                  onTap: () {},
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => SignUpScreen()),
+                                    );
+                                  },
                                   child: Text("Sign Up",
                                       style: TextStyle(
                                           color: Colors.red,
