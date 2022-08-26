@@ -84,6 +84,8 @@ class LoginScreenState extends State<LoginScreen> {
                         SizedBox(height: 20),
                         TextFormField(
                           controller: emailController,
+                          keyboardType: TextInputType.emailAddress,
+                          textInputAction: TextInputAction.next,
                           decoration: InputDecoration(
                             hintText: 'Email or Mobile Number',
                             labelText: 'Email or Mobile Number',
@@ -95,6 +97,7 @@ class LoginScreenState extends State<LoginScreen> {
                         SizedBox(height: 14),
                         TextFormField(
                           controller: passwordController,
+                          textInputAction: TextInputAction.done,
                           decoration: InputDecoration(
                             hintText: 'Password',
                             labelText: 'Password',
@@ -106,21 +109,20 @@ class LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
                         SizedBox(height: 36),
-                        GestureDetector(
-                          onTap: () {},
-                          child: Container(
-                            height: 44,
-                            decoration: BoxDecoration(
-                                color: Colors.lightGreen,
-                                borderRadius: BorderRadius.circular(10)),
-                            child: Center(
-                                child: Text("Login",
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 15,
-                                    ))),
-                          ),
+                        MaterialButton(
+                          onPressed: () {},
+                          color: Colors.lightGreen,
+                          elevation: 0,
+                          height: 42,
+                          splashColor: Colors.white.withAlpha(30),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8)),
+                          child: Text("Login",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w500,
+                                fontSize: 15,
+                              )),
                         ),
                         SizedBox(height: 32),
                         GestureDetector(
