@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_ecommerce/login_screen.dart';
+import 'package:flutter_ecommerce/signup_screen.dart';
 import 'package:flutter_ecommerce/splash_screen.dart';
+import 'package:flutter_ecommerce/verify_otp_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,7 +21,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: "Ecommerce App",
       theme: ThemeData(primarySwatch: Colors.lightGreen),
-      home: const SplashScreen(),
+      home:  SplashScreen(),
     );
   }
 }
