@@ -11,27 +11,126 @@ class DashboardScreen extends StatefulWidget {
   const DashboardScreen({Key? key}) : super(key: key);
 
   @override
-  DashboardScreenState createState() => DashboardScreenState();
+  State<DashboardScreen> createState() => DashboardScreenState();
 }
 
 class DashboardScreenState extends State<DashboardScreen> {
+  int _selectedIndex = 0;
+  static const TextStyle optionStyle =
+      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+  static const List<Widget> _widgetOptions = <Widget>[
+    Text(
+      'Index 0: Home',
+      style: optionStyle,
+    ),
+    Text(
+      'Index 1: Business',
+      style: optionStyle,
+    ),
+    Text(
+      'Index 2: School',
+      style: optionStyle,
+    ),
+    Text(
+      'Index 3: School',
+      style: optionStyle,
+    ),
+    Text(
+      'Index 4: School',
+      style: optionStyle,
+    ),
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+        statusBarColor: Colors.white,
+        statusBarIconBrightness: Brightness.dark));
     return Scaffold(
-      backgroundColor: Colors.white,
+      appBar: AppBar(
+        title: const Text('BottomNavigationBar Sample'),
+      ),
       body: Center(
-          child: MaterialButton(
-        onPressed: () {
-          Utils.clearALlSharesPreferencesData();
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => LoginScreen()),
-          );
-        },
-        color: Colors.green,
-        child: Text("Logout"),
-      )),
+        child: _widgetOptions.elementAt(_selectedIndex),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+              activeIcon: Padding(
+                padding: const EdgeInsets.all(6.0),
+                child: SvgPicture.asset('assets/images/ic_home_tab.svg',
+                    width: 20),
+              ),
+              icon: Padding(
+                padding: const EdgeInsets.all(6.0),
+                child: SvgPicture.asset('assets/images/ic_home_tab_inactive.svg',
+                    width: 20),
+              ),
+              label: 'Home'),
+          BottomNavigationBarItem(
+              activeIcon: Padding(
+                padding: const EdgeInsets.all(6.0),
+                child: SvgPicture.asset('assets/images/ic_search_tab.svg',
+                    width: 22),
+              ),
+              icon: Padding(
+                padding: const EdgeInsets.all(6.0),
+                child: SvgPicture.asset('assets/images/ic_search_tab_inactive.svg',
+                    width: 22),
+              ),
+              label: 'Explore'),
+          BottomNavigationBarItem(
+              activeIcon: Padding(
+                padding: const EdgeInsets.all(6.0),
+                child: SvgPicture.asset('assets/images/ic_cart_tab.svg',
+                    width: 22),
+              ),
+              icon: Padding(
+                padding: const EdgeInsets.all(6.0),
+                child: SvgPicture.asset('assets/images/ic_cart_tab_inactive.svg',
+                    width: 22),
+              ),
+              label: 'Cart'),
+          BottomNavigationBarItem(
+              activeIcon: Padding(
+                padding: const EdgeInsets.all(6.0),
+                child: SvgPicture.asset('assets/images/ic_offer_tab.svg',
+                    width: 22),
+              ),
+              icon: Padding(
+                padding: const EdgeInsets.all(6.0),
+                child: SvgPicture.asset('assets/images/ic_offer_tab_inactive.svg',
+                    width: 22),
+              ),
+              label: 'Offer'),
+          BottomNavigationBarItem(
+              activeIcon: Padding(
+                padding: const EdgeInsets.all(6.0),
+                child: SvgPicture.asset('assets/images/ic_account_tab.svg',
+                    width: 22),
+              ),
+              icon: Padding(
+                padding: const EdgeInsets.all(6.0),
+                child: SvgPicture.asset('assets/images/ic_account_tab_inactive.svg',
+                    width: 22),
+              ),
+              label: 'Account'),
+        ],
+        currentIndex: _selectedIndex,
+        showUnselectedLabels: true,
+        selectedItemColor: Colors.lightGreen,
+        unselectedItemColor: Colors.black38,
+        selectedFontSize: 11,
+        unselectedFontSize: 11,
+        selectedLabelStyle: TextStyle(fontWeight: FontWeight.w500),
+        onTap: _onItemTapped,
+      ),
     );
   }
 }
-

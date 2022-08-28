@@ -1,0 +1,29 @@
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 20 20"
+    id="vector">
+    <path
+        id="path"
+        d="M 1 7.75 L 10 1 L 19 7.75"
+        fill="#ffffff"
+        stroke="#9b9b9b"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"/>
+    <path
+        id="path_1"
+        d="M 19 7.75 L 19 19 L 1 19 L 1 7.75"
+        fill="#ffffff"
+        stroke="#9b9b9b"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"/>
+    <path
+        id="path_2"
+        d="M 12.25 12.25 L 7.75 12.25 L 7.75 19 L 12.25 19 L 12.25 12.25 Z"
+        fill="#ffffff"
+        stroke="#9b9b9b"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"/>
+</svg>

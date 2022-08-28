@@ -67,6 +67,16 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/img_app_logo.svg
+    - assets/images/ic_home_tab.svg
+    - assets/images/ic_home_tab_inactive.svg
+    - assets/images/ic_search_tab.svg
+    - assets/images/ic_search_tab_inactive.svg
+    - assets/images/ic_cart_tab.svg
+    - assets/images/ic_cart_tab_inactive.svg
+    - assets/images/ic_offer_tab.svg
+    - assets/images/ic_offer_tab_inactive.svg
+    - assets/images/ic_account_tab.svg
+    - assets/images/ic_account_tab_inactive.svg
     - assets/images/img_login_bg.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
