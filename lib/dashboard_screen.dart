@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_ecommerce/home_tab.dart';
 import 'package:flutter_ecommerce/signup_screen.dart';
 import 'package:flutter_ecommerce/utils.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -19,10 +20,7 @@ class DashboardScreenState extends State<DashboardScreen> {
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
-    Text(
-      'Index 0: Home',
-      style: optionStyle,
-    ),
+    HomeTab(),
     Text(
       'Index 1: Business',
       style: optionStyle,
@@ -54,9 +52,11 @@ class DashboardScreenState extends State<DashboardScreen> {
         statusBarIconBrightness: Brightness.dark));
     return Scaffold(
       appBar: AppBar(
-        title: const Text('BottomNavigationBar Sample'),
+        backgroundColor: Colors.white,
+        elevation: 0,
+        title: const Text('Home'),
       ),
-      body: Center(
+      body: Container(
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -69,7 +69,8 @@ class DashboardScreenState extends State<DashboardScreen> {
               ),
               icon: Padding(
                 padding: const EdgeInsets.all(6.0),
-                child: SvgPicture.asset('assets/images/ic_home_tab_inactive.svg',
+                child: SvgPicture.asset(
+                    'assets/images/ic_home_tab_inactive.svg',
                     width: 20),
               ),
               label: 'Home'),
@@ -81,7 +82,8 @@ class DashboardScreenState extends State<DashboardScreen> {
               ),
               icon: Padding(
                 padding: const EdgeInsets.all(6.0),
-                child: SvgPicture.asset('assets/images/ic_search_tab_inactive.svg',
+                child: SvgPicture.asset(
+                    'assets/images/ic_search_tab_inactive.svg',
                     width: 22),
               ),
               label: 'Explore'),
@@ -93,7 +95,8 @@ class DashboardScreenState extends State<DashboardScreen> {
               ),
               icon: Padding(
                 padding: const EdgeInsets.all(6.0),
-                child: SvgPicture.asset('assets/images/ic_cart_tab_inactive.svg',
+                child: SvgPicture.asset(
+                    'assets/images/ic_cart_tab_inactive.svg',
                     width: 22),
               ),
               label: 'Cart'),
@@ -105,7 +108,8 @@ class DashboardScreenState extends State<DashboardScreen> {
               ),
               icon: Padding(
                 padding: const EdgeInsets.all(6.0),
-                child: SvgPicture.asset('assets/images/ic_offer_tab_inactive.svg',
+                child: SvgPicture.asset(
+                    'assets/images/ic_offer_tab_inactive.svg',
                     width: 22),
               ),
               label: 'Offer'),
@@ -117,12 +121,14 @@ class DashboardScreenState extends State<DashboardScreen> {
               ),
               icon: Padding(
                 padding: const EdgeInsets.all(6.0),
-                child: SvgPicture.asset('assets/images/ic_account_tab_inactive.svg',
+                child: SvgPicture.asset(
+                    'assets/images/ic_account_tab_inactive.svg',
                     width: 22),
               ),
               label: 'Account'),
         ],
         currentIndex: _selectedIndex,
+        type: BottomNavigationBarType.fixed,
         showUnselectedLabels: true,
         selectedItemColor: Colors.lightGreen,
         unselectedItemColor: Colors.black38,
