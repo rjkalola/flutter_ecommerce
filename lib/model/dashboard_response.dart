@@ -1,17 +1,25 @@
+import 'dart:convert';
+
 import 'slider_info.dart';
 import 'category_info.dart';
 import 'product_info.dart';
 
+DashboardResponse dashboardResponseFromJson(String str) =>
+    DashboardResponse.fromJson(json.decode(str));
+
 class DashboardResponse {
   DashboardResponse({
-      required this.isSuccess ,
-      this.recommImage, 
-      this.sliders, 
-      this.categories, 
-      this.megaProducts, 
-      this.flashSaleProducts, 
-      this.products, 
-      required this.offset,});
+    required this.isSuccess,
+    this.recommImage,
+    this.sliders,
+    this.categories,
+    this.megaProducts,
+    this.flashSaleProducts,
+    this.products,
+    this.Message,
+    this.ErrorCode,
+    required this.offset,
+  });
 
   DashboardResponse.fromJson(dynamic json) {
     isSuccess = json['IsSuccess'];
@@ -46,10 +54,19 @@ class DashboardResponse {
         products?.add(ProductInfo.fromJson(v));
       });
     }
+    if (json['Message'] != null) {
+      Message = json['Message'];
+    }
+    if (json['ErrorCode'] != null) {
+      ErrorCode = json['ErrorCode'];
+    }
+
     offset = json['offset'];
   }
 
   bool isSuccess = false;
+  String? Message;
+  String? ErrorCode;
   String? recommImage;
   List<SliderInfo>? sliders;
   List<CategoryInfo>? categories;
@@ -72,7 +89,8 @@ class DashboardResponse {
       map['mega_products'] = megaProducts?.map((v) => v.toJson()).toList();
     }
     if (flashSaleProducts != null) {
-      map['flash_sale_products'] = flashSaleProducts?.map((v) => v.toJson()).toList();
+      map['flash_sale_products'] =
+          flashSaleProducts?.map((v) => v.toJson()).toList();
     }
     if (products != null) {
       map['products'] = products?.map((v) => v.toJson()).toList();
@@ -80,5 +98,4 @@ class DashboardResponse {
     map['offset'] = offset;
     return map;
   }
-
 }

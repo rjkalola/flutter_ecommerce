@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter_ecommerce/model/dashboard_response.dart';
 import 'package:flutter_ecommerce/model/sign_up_response.dart';
 import 'package:http/http.dart';
 import '../model/base_response.dart';
@@ -55,6 +56,15 @@ class RemoteService {
     if (response.statusCode == 200) {
       var data = response.body;
       return baseResponseFromJson(data);
+    }
+  }
+
+  Future<DashboardResponse?> getDashboardData(int limit,int offset) async {
+    Response response = await post(Uri.parse("${Utils.appUrl}dashboard"),
+        body: {'limit': limit.toString(),'offset': offset.toString()});
+    if (response.statusCode == 200) {
+      var data = response.body;
+      return dashboardResponseFromJson(data);
     }
   }
 }
