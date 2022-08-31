@@ -61,6 +61,7 @@ class RemoteService {
 
   Future<DashboardResponse?> getDashboardData(int limit,int offset) async {
     Response response = await post(Uri.parse("${Utils.appUrl}dashboard"),
+        headers: <String, String>{'authorization': "Bearer ${Utils.userInfo?.apiToken}"},
         body: {'limit': limit.toString(),'offset': offset.toString()});
     if (response.statusCode == 200) {
       var data = response.body;

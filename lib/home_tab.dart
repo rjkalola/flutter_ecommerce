@@ -18,7 +18,9 @@ class HomeTab extends StatefulWidget {
 }
 
 class HomeTabState extends State<HomeTab> {
-  bool isProgress = false, isMainViewVisible = false,isLoadMoreProgress = false;
+  bool isProgress = false,
+      isMainViewVisible = false,
+      isLoadMoreProgress = false;
   int activePage = 0;
   List<ProductInfo> productsList = [];
   late PageController _pageController;
@@ -76,64 +78,69 @@ class HomeTabState extends State<HomeTab> {
             child: RefreshIndicator(
               onRefresh: _pullRefresh,
               child: Stack(
-                children: [SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        Divider(
-                          color: Colors.black26,
-                        ),
-                        setPagerList(),
-                        setPagerDotsList(),
-                        Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: const [
-                              Text(
-                                "Category",
+                children: [
+                  SingleChildScrollView(
+                      child: Column(
+                    children: [
+                      Divider(
+                        color: Colors.black26,
+                      ),
+                      setPagerList(),
+                      setPagerDotsList(),
+                      Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: const [
+                            Text(
+                              "Category",
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                                fontFamily: 'Poppins',
+                              ),
+                            ),
+                            Text("More Category",
                                 style: TextStyle(
                                   fontSize: 14,
-                                  color: Colors.black,
+                                  color: Color(0xffFFBA49),
                                   fontWeight: FontWeight.bold,
                                   fontFamily: 'Poppins',
-                                ),
+                                ))
+                          ],
+                        ),
+                      ),
+                      setCategoryGridList(),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(12, 4, 12, 4),
+                        child: Container(
+                            width: MediaQuery.of(context).size.width,
+                            height: 220,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                fit: BoxFit.fill,
+                                image: NetworkImage(
+                                    "https://magasin.workpotency.com//public//images//recommended.jpeg"),
                               ),
-                              Text("More Category",
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    color: Color(0xffFFBA49),
-                                    fontWeight: FontWeight.bold,
-                                    fontFamily: 'Poppins',
-                                  ))
-                            ],
-                          ),
-                        ),
-                        setCategoryGridList(),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(12, 4, 12, 4),
-                          child: Container(
-                              width: MediaQuery.of(context).size.width,
-                              height: 220,
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  fit: BoxFit.fill,
-                                  image: NetworkImage(
-                                      "https://magasin.workpotency.com//public//images//recommended.jpeg"),
-                                ),
-                              )),
-                        ),
-                        setProductsList()
-                      ],
-                    )),
+                            )),
+                      ),
+                      setProductsList()
+                    ],
+                  )),
                   Visibility(
                     visible: isLoadMoreProgress,
                     child: Positioned(
-                    child: Align(
-                      alignment: Alignment.bottomCenter,
-                      child: CircularProgressIndicator(),
+                      child: Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Padding(
+                          padding: const EdgeInsets.all(14.0),
+                          child: CircularProgressIndicator(),
+                        ),
+                      ),
                     ),
-                ),
-                  )],
+                  )
+                ],
               ),
             ),
           ),
@@ -274,7 +281,7 @@ class HomeTabState extends State<HomeTab> {
                             decoration: BoxDecoration(
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(100),
-                                boxShadow: [
+                                boxShadow: const [
                                   BoxShadow(
                                     color: Colors.grey,
                                     blurRadius: 2.0,
@@ -282,9 +289,13 @@ class HomeTabState extends State<HomeTab> {
                                 ]),
                             child: Padding(
                               padding: const EdgeInsets.all(5.0),
-                              child: SvgPicture.asset(
-                                  'assets/images/ic_un_like.svg',
-                                  width: 20),
+                              child: (dashboardResponse
+                                          ?.products![index].liked?? false) ? SvgPicture.asset(
+                                      'assets/images/ic_like.svg',
+                                      width: 20)
+                                  : SvgPicture.asset(
+                                      'assets/images/ic_un_like.svg',
+                                      width: 20),
                             ),
                           )),
                     ],

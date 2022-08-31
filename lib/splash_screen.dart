@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_ecommerce/dashboard_screen.dart';
+import 'package:flutter_ecommerce/model/user_info.dart';
 import 'package:flutter_ecommerce/signup_screen.dart';
 import 'package:flutter_ecommerce/utils.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -23,6 +26,10 @@ class SplashScreenState extends State<SplashScreen> {
             var userdata = prefValue.getString(Utils.KEY_LOGIN_DATA) ?? "";
             Future.delayed(const Duration(seconds: 4), () {
               if (userdata.isEmpty) {
+               /* Map<String, dynamic> userMap = jsonDecode(userdata);
+                UserInfo info = UserInfo.fromJson(userMap);
+                Utils.userInfo = info;*/
+
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(builder: (context) => const LoginScreen()),

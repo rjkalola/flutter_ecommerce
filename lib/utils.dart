@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'model/user_info.dart';
+
 class Utils {
   static String appUrl = "https://magasin.workpotency.com/api/v1/";
-
   static String KEY_LOGIN_DATA = "KEY_LOGIN_DATA";
+  static UserInfo? userInfo ;
 
   static Future<String?> getLoginData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
