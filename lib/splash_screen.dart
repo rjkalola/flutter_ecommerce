@@ -26,15 +26,14 @@ class SplashScreenState extends State<SplashScreen> {
             var userdata = prefValue.getString(Utils.KEY_LOGIN_DATA) ?? "";
             Future.delayed(const Duration(seconds: 4), () {
               if (userdata.isEmpty) {
-               /* Map<String, dynamic> userMap = jsonDecode(userdata);
-                UserInfo info = UserInfo.fromJson(userMap);
-                Utils.userInfo = info;*/
-
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(builder: (context) => const LoginScreen()),
                 );
               } else {
+                Map<String, dynamic> userMap = jsonDecode(userdata);
+                Utils.userInfo = UserInfo.fromJson(userMap);
+                print("username:${Utils.userInfo?.name}");
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(

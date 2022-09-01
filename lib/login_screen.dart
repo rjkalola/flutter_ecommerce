@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_ecommerce/dashboard_screen.dart';
+import 'package:flutter_ecommerce/model/user_info.dart';
 import 'package:flutter_ecommerce/service/authorization.dart';
 import 'package:flutter_ecommerce/signup_screen.dart';
 import 'package:flutter_ecommerce/utils.dart';
@@ -201,11 +204,10 @@ class LoginScreenState extends State<LoginScreen> {
           await RemoteService().login(email, password);
       hideProgress();
       if (loginResponse != null) {
-        print(loginResponse.toJson().toString());
         if (loginResponse.isSuccess) {
-          var userdata = loginResponse.info?.toJson().toString();
+          var userdata = json.encode(loginResponse.info);
           if (loginResponse.isVerified!) {
-            Utils.saveLoginData(userdata!);
+            Utils.saveLoginData(userdata);
             moveToDashboardScreen();
           }else{
             moveToVerifyOtpScreen(loginResponse.user_id!);

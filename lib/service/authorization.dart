@@ -13,6 +13,9 @@ class RemoteService {
         body: {'email': email, 'password': password});
     if (response.statusCode == 200) {
       var data = response.body;
+      // String jsonsDataString = data.toString(); // Error: toString of Response is assigned to jsonDataString.
+      // var _data = jsonDecode(jsonsDataString);
+      // print("Data:$_data");
       return loginResponseFromJson(data);
     }
   }

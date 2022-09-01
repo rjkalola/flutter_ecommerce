@@ -4,6 +4,9 @@
 
 import 'dart:convert';
 
+UserInfo userInfoFromJson(String str) =>
+    UserInfo.fromJson(json.decode(str));
+
 class UserInfo {
   UserInfo({
     required this.id,
