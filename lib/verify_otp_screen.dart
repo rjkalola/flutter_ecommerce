@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_ecommerce/dashboard_screen.dart';
@@ -8,6 +10,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 import 'model/login_response.dart';
+import 'model/user_info.dart';
 
 class VerifyOTP extends StatefulWidget {
   VerifyOTP({Key? key, required this.userId, required this.isFromRegister})
@@ -325,8 +328,10 @@ class VerifyOTPState extends State<VerifyOTP> {
       if (loginResponse != null) {
         print(loginResponse.toJson().toString());
         if (loginResponse.isSuccess) {
-          var userdata = loginResponse.info?.toJson().toString();
-          Utils.saveLoginData(userdata!);
+          var userdata = json.encode(loginResponse.info);
+          Map<String, dynamic> userMap = jsonDecode(userdata);
+          Utils.userInfo = UserInfo.fromJson(userMap);
+          Utils.saveLoginData(userdata);
           moveToDashboardScreen();
         } else {
           if (!mounted) return;

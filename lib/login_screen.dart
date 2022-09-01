@@ -206,6 +206,8 @@ class LoginScreenState extends State<LoginScreen> {
       if (loginResponse != null) {
         if (loginResponse.isSuccess) {
           var userdata = json.encode(loginResponse.info);
+          Map<String, dynamic> userMap = jsonDecode(userdata);
+          Utils.userInfo = UserInfo.fromJson(userMap);
           if (loginResponse.isVerified!) {
             Utils.saveLoginData(userdata);
             moveToDashboardScreen();

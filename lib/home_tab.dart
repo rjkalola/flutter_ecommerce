@@ -20,8 +20,9 @@ class HomeTab extends StatefulWidget {
 class HomeTabState extends State<HomeTab> {
   bool isProgress = false,
       isMainViewVisible = false,
-      isLoadMoreProgress = false;
-  int activePage = 0;
+      isLoadMoreProgress = false,
+      mIsLastPage = false;
+  int activePage = 0, offset = 0;
   List<ProductInfo> productsList = [];
   late PageController _pageController;
   DashboardResponse? dashboardResponse;
@@ -43,10 +44,16 @@ class HomeTabState extends State<HomeTab> {
     // why use freshNumbers var? https://stackoverflow.com/a/52992836/2301224
   }
 
-  Future _loadMoreVertical() async {
-    setState(() {
+  Future loadMore() async {
+    print("loadMore");
+
+    if(!mIsLastPage && !isLoadMoreProgress){
       isLoadMoreProgress = true;
-    });
+      setState(() {
+      });
+      getDashboardResponse();
+    }
+
 
     /* // Add in an artificial delay
     await new Future.delayed(const Duration(seconds: 2));
@@ -73,6 +80,7 @@ class HomeTabState extends State<HomeTab> {
           visible: isMainViewVisible,
           child: LazyLoadScrollView(
             onEndOfPage: () {
+              loadMore();
               print("onEndOfPage");
             },
             child: RefreshIndicator(
@@ -289,13 +297,15 @@ class HomeTabState extends State<HomeTab> {
                                 ]),
                             child: Padding(
                               padding: const EdgeInsets.all(5.0),
-                              child: (dashboardResponse
-                                          ?.products![index].liked?? false) ? SvgPicture.asset(
-                                      'assets/images/ic_like.svg',
-                                      width: 20)
-                                  : SvgPicture.asset(
-                                      'assets/images/ic_un_like.svg',
-                                      width: 20),
+                              child:
+                                  (dashboardResponse?.products![index].liked ??
+                                          false)
+                                      ? SvgPicture.asset(
+                                          'assets/images/ic_like.svg',
+                                          width: 20)
+                                      : SvgPicture.asset(
+                                          'assets/images/ic_un_like.svg',
+                                          width: 20),
                             ),
                           )),
                     ],
@@ -389,13 +399,29 @@ class HomeTabState extends State<HomeTab> {
   }
 
   void getDashboardResponse() async {
-    DashboardResponse? response = await RemoteService().getDashboardData(20, 0);
+    DashboardResponse? response = await RemoteService().getDashboardData(10, offset);
     hideProgress();
     if (response != null) {
       print(response.toJson().toString());
       if (response.isSuccess) {
-        dashboardResponse = response;
-        isMainViewVisible = true;
+        if (offset == 0) {
+          print("c0nd1");
+          dashboardResponse = response;
+          isMainViewVisible = true;
+        } else if (response.products!.isNotEmpty) {
+          print("c0nd2");
+          dashboardResponse?.products?.addAll(response.products!);
+          isLoadMoreProgress = false;
+        } else if (response.offset == 0) {
+          print("c0nd3");
+          isLoadMoreProgress = false;
+        }
+        offset = response.offset;
+        mIsLastPage = (offset == 0);
+
+        print(mIsLastPage);
+        print(offset);
+
         setState(() {});
       } else {
         if (!mounted) return;

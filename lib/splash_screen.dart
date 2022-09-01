@@ -33,7 +33,6 @@ class SplashScreenState extends State<SplashScreen> {
               } else {
                 Map<String, dynamic> userMap = jsonDecode(userdata);
                 Utils.userInfo = UserInfo.fromJson(userMap);
-                print("username:${Utils.userInfo?.name}");
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
