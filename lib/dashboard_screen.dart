@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_ecommerce/account_tab.dart';
 import 'package:flutter_ecommerce/home_tab.dart';
 import 'package:flutter_ecommerce/signup_screen.dart';
 import 'package:flutter_ecommerce/utils.dart';
@@ -17,6 +18,7 @@ class DashboardScreen extends StatefulWidget {
 
 class DashboardScreenState extends State<DashboardScreen> {
   int _selectedIndex = 0;
+  String title = "";
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
@@ -33,15 +35,20 @@ class DashboardScreenState extends State<DashboardScreen> {
       'Index 3: School',
       style: optionStyle,
     ),
-    Text(
-      'Index 4: School',
-      style: optionStyle,
-    ),
+    AccountTab(),
+  ];
+  static const List<String> titles = <String>[
+    "Home",
+    "Explore",
+    "Cart",
+    "Offer",
+    "Account"
   ];
 
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
+      print(titles.elementAt(_selectedIndex));
     });
   }
 
@@ -54,7 +61,12 @@ class DashboardScreenState extends State<DashboardScreen> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        title: const Text('Home'),
+        title: Text(titles.elementAt(_selectedIndex),style: TextStyle(
+          fontSize: 16,
+          color: Colors.black,
+          fontWeight: FontWeight.bold,
+          fontFamily: 'Poppins',
+        )),
       ),
       body: Container(
         child: _widgetOptions.elementAt(_selectedIndex),

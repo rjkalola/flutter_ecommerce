@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_ecommerce/model/dashboard_response.dart';
@@ -37,23 +38,20 @@ class HomeTabState extends State<HomeTab> {
 
   Future<void> _pullRefresh() async {
     print("Pull to refresh");
-    // List<String> freshNumbers = await NumberGenerator().slowNumbers();
-    setState(() {
-      // numbersList = freshNumbers;
-    });
-    // why use freshNumbers var? https://stackoverflow.com/a/52992836/2301224
+    offset = 0;
+    activePage = 0;
+    // showProgress();
+    getDashboardResponse();
   }
 
   Future loadMore() async {
     print("loadMore");
 
-    if(!mIsLastPage && !isLoadMoreProgress){
+    if (!mIsLastPage && !isLoadMoreProgress) {
       isLoadMoreProgress = true;
-      setState(() {
-      });
+      setState(() {});
       getDashboardResponse();
     }
-
 
     /* // Add in an artificial delay
     await new Future.delayed(const Duration(seconds: 2));
@@ -93,8 +91,12 @@ class HomeTabState extends State<HomeTab> {
                       Divider(
                         color: Colors.black26,
                       ),
-                      setPagerList(),
-                      setPagerDotsList(),
+                      if (dashboardResponse != null &&
+                          dashboardResponse!.sliders!.isNotEmpty)
+                        setPagerList(),
+                      if (dashboardResponse != null &&
+                          dashboardResponse!.sliders!.isNotEmpty)
+                        setPagerDotsList(),
                       Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: Row(
@@ -119,21 +121,27 @@ class HomeTabState extends State<HomeTab> {
                           ],
                         ),
                       ),
-                      setCategoryGridList(),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(12, 4, 12, 4),
-                        child: Container(
-                            width: MediaQuery.of(context).size.width,
-                            height: 220,
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                fit: BoxFit.fill,
-                                image: NetworkImage(
-                                    "https://magasin.workpotency.com//public//images//recommended.jpeg"),
-                              ),
-                            )),
-                      ),
-                      setProductsList()
+                      if (dashboardResponse != null &&
+                          dashboardResponse!.categories!.isNotEmpty)
+                        setCategoryGridList(),
+                      if (dashboardResponse != null &&
+                          dashboardResponse!.recommImage!.isNotEmpty)
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(12, 4, 12, 4),
+                          child: Container(
+                              width: MediaQuery.of(context).size.width,
+                              height: 220,
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  fit: BoxFit.fill,
+                                  image: NetworkImage(
+                                      dashboardResponse!.recommImage!),
+                                ),
+                              )),
+                        ),
+                      if (dashboardResponse != null &&
+                          dashboardResponse!.products!.isNotEmpty)
+                        setProductsList()
                     ],
                   )),
                   Visibility(
@@ -175,8 +183,9 @@ class HomeTabState extends State<HomeTab> {
             itemBuilder: (context, pagePosition) {
               return Container(
                 margin: EdgeInsets.all(10),
-                child: Image.network(
-                  dashboardResponse?.sliders![pagePosition].image ?? '',
+                child: CachedNetworkImage(
+                  imageUrl:
+                      dashboardResponse?.sliders![pagePosition].image ?? '',
                   fit: BoxFit.cover,
                 ),
               );
@@ -222,8 +231,9 @@ class HomeTabState extends State<HomeTab> {
                       width: double.infinity,
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Image.network(
-                          dashboardResponse?.categories![index].image ?? '',
+                        child: CachedNetworkImage(
+                          imageUrl:
+                              dashboardResponse?.categories![index].image ?? '',
                           fit: BoxFit.scaleDown,
                           height: 24,
                           width: 24,
@@ -273,11 +283,10 @@ class HomeTabState extends State<HomeTab> {
                         height: (MediaQuery.of(context).size.width / 2) * 1.20,
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(6.0),
-                          child: Image.network(
-                            dashboardResponse?.products![index].image ?? '',
+                          child: CachedNetworkImage(
+                            imageUrl:
+                                dashboardResponse?.products![index].image ?? '',
                             fit: BoxFit.cover,
-                            height: 24,
-                            width: 24,
                           ),
                         ),
                       ),
@@ -399,7 +408,8 @@ class HomeTabState extends State<HomeTab> {
   }
 
   void getDashboardResponse() async {
-    DashboardResponse? response = await RemoteService().getDashboardData(10, offset);
+    DashboardResponse? response =
+        await RemoteService().getDashboardData(10, offset);
     hideProgress();
     if (response != null) {
       print(response.toJson().toString());
