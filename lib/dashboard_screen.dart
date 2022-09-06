@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_ecommerce/account_tab.dart';
 import 'package:flutter_ecommerce/home_tab.dart';
+import 'package:flutter_ecommerce/offer_tab.dart';
 import 'package:flutter_ecommerce/signup_screen.dart';
 import 'package:flutter_ecommerce/utils.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -31,10 +32,7 @@ class DashboardScreenState extends State<DashboardScreen> {
       'Index 2: School',
       style: optionStyle,
     ),
-    Text(
-      'Index 3: School',
-      style: optionStyle,
-    ),
+    OfferTab(),
     AccountTab(),
   ];
   static const List<String> titles = <String>[
