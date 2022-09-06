@@ -8,9 +8,10 @@ class AccountTab extends StatefulWidget {
   AccountTabState createState() => AccountTabState();
 }
 
-class AccountTabState extends State<AccountTab> {
+class AccountTabState extends State<AccountTab> with AutomaticKeepAliveClientMixin{
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(
       backgroundColor: Colors.white,
       body: ListView(
@@ -131,4 +132,7 @@ class AccountTabState extends State<AccountTab> {
       ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

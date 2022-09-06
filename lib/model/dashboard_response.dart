@@ -96,6 +96,12 @@ class DashboardResponse {
       map['products'] = products?.map((v) => v.toJson()).toList();
     }
     map['offset'] = offset;
+    if (Message != null) {
+      map['Message'] = Message;
+    }
+    if (ErrorCode != null) {
+      map['ErrorCode'] = ErrorCode;
+    }
     return map;
   }
 }

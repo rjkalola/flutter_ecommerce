@@ -3,12 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_ecommerce/account_tab.dart';
 import 'package:flutter_ecommerce/home_tab.dart';
 import 'package:flutter_ecommerce/offer_tab.dart';
-import 'package:flutter_ecommerce/signup_screen.dart';
-import 'package:flutter_ecommerce/utils.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'login_screen.dart';
-import 'signup_screen.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({Key? key}) : super(key: key);
@@ -18,11 +13,12 @@ class DashboardScreen extends StatefulWidget {
 }
 
 class DashboardScreenState extends State<DashboardScreen> {
+  PageController _pageController = PageController();
   int _selectedIndex = 0;
   String title = "";
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-  static const List<Widget> _widgetOptions = <Widget>[
+  static const List<Widget> _screens = <Widget>[
     HomeTab(),
     Text(
       'Index 1: Business',
@@ -44,8 +40,13 @@ class DashboardScreenState extends State<DashboardScreen> {
   ];
 
   void _onItemTapped(int index) {
+    _pageController.jumpToPage(index);
+  }
+
+  void _onPageChanged(int index) {
     setState(() {
       _selectedIndex = index;
+      print(_selectedIndex.toString());
       print(titles.elementAt(_selectedIndex));
     });
   }
@@ -66,8 +67,11 @@ class DashboardScreenState extends State<DashboardScreen> {
           fontFamily: 'Poppins',
         )),
       ),
-      body: Container(
-        child: _widgetOptions.elementAt(_selectedIndex),
+      body: PageView(
+        controller: _pageController,
+        children: _screens,
+        onPageChanged: _onPageChanged,
+        physics: NeverScrollableScrollPhysics(),
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: <BottomNavigationBarItem>[
@@ -149,4 +153,5 @@ class DashboardScreenState extends State<DashboardScreen> {
       ),
     );
   }
+
 }

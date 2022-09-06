@@ -18,15 +18,16 @@ class HomeTab extends StatefulWidget {
   HomeTabState createState() => HomeTabState();
 }
 
-class HomeTabState extends State<HomeTab> {
+class HomeTabState extends State<HomeTab> with AutomaticKeepAliveClientMixin{
   bool isProgress = false,
       isMainViewVisible = false,
       isLoadMoreProgress = false,
       mIsLastPage = false;
   int activePage = 0, offset = 0;
-  List<ProductInfo> productsList = [];
   late PageController _pageController;
   DashboardResponse? dashboardResponse;
+
+
 
   @override
   void initState() {
@@ -52,20 +53,11 @@ class HomeTabState extends State<HomeTab> {
       setState(() {});
       getDashboardResponse();
     }
-
-    /* // Add in an artificial delay
-    await new Future.delayed(const Duration(seconds: 2));
-
-    productsList.addAll(
-        List.generate(increment, (index) => verticalData.length + index));
-
-    setState(() {
-      isLoadingVertical = false;
-    });*/
   }
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     final orientation = MediaQuery.of(context).orientation;
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
         statusBarColor: Colors.white,
@@ -439,4 +431,7 @@ class HomeTabState extends State<HomeTab> {
       }
     }
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

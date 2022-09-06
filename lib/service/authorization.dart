@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter_ecommerce/model/dashboard_response.dart';
+import 'package:flutter_ecommerce/model/offer_response.dart';
 import 'package:flutter_ecommerce/model/sign_up_response.dart';
 import 'package:http/http.dart';
 import '../model/base_response.dart';
@@ -69,6 +70,16 @@ class RemoteService {
     if (response.statusCode == 200) {
       var data = response.body;
       return dashboardResponseFromJson(data);
+    }
+  }
+
+  Future<OfferResponse?> getOffersData(int limit,int offset) async {
+    Response response = await post(Uri.parse("${Utils.appUrl}offers"),
+        headers: <String, String>{'authorization': "Bearer ${Utils.userInfo?.apiToken}"},
+        body: {'limit': limit.toString(),'offset': offset.toString()});
+    if (response.statusCode == 200) {
+      var data = response.body;
+      return offerResponseFromJson(data);
     }
   }
 }

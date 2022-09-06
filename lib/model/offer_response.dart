@@ -2,11 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter_ecommerce/model/offer_info.dart';
 
-import 'slider_info.dart';
-import 'category_info.dart';
-import 'product_info.dart';
-
-OfferResponse OfferResponseFromJson(String str) =>
+OfferResponse offerResponseFromJson(String str) =>
     OfferResponse.fromJson(json.decode(str));
 
 class OfferResponse {
@@ -46,7 +42,13 @@ class OfferResponse {
     final map = <String, dynamic>{};
     map['IsSuccess'] = isSuccess;
     if (Data != null) {
-      map['products'] = Data?.map((v) => v.toJson()).toList();
+      map['Data'] = Data?.map((v) => v.toJson()).toList();
+    }
+    if (Message != null) {
+      map['Message'] = Message;
+    }
+    if (ErrorCode != null) {
+      map['ErrorCode'] = ErrorCode;
     }
     map['offset'] = offset;
     return map;
