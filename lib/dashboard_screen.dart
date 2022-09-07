@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_ecommerce/account_tab.dart';
+import 'package:flutter_ecommerce/categories_tab.dart';
 import 'package:flutter_ecommerce/home_tab.dart';
 import 'package:flutter_ecommerce/offer_tab.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -20,14 +21,8 @@ class DashboardScreenState extends State<DashboardScreen> {
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _screens = <Widget>[
     HomeTab(),
-    Text(
-      'Index 1: Business',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 2: School',
-      style: optionStyle,
-    ),
+    CategoriesTab(),
+    Center(child: Text("Cart Info")),
     OfferTab(),
     AccountTab(),
   ];

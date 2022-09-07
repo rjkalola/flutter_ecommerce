@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter_ecommerce/model/categories_response.dart';
 import 'package:flutter_ecommerce/model/dashboard_response.dart';
 import 'package:flutter_ecommerce/model/offer_response.dart';
 import 'package:flutter_ecommerce/model/sign_up_response.dart';
@@ -80,6 +81,15 @@ class RemoteService {
     if (response.statusCode == 200) {
       var data = response.body;
       return offerResponseFromJson(data);
+    }
+  }
+
+  Future<CategoriesResponse?> getCategoriesData() async {
+    Response response = await get(Uri.parse("${Utils.appUrl}get-categories"),
+        headers: <String, String>{'authorization': "Bearer ${Utils.userInfo?.apiToken}"},);
+    if (response.statusCode == 200) {
+      var data = response.body;
+      return categoriesResponseFromJson(data);
     }
   }
 }
